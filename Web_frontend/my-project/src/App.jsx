@@ -9,6 +9,8 @@ export default function App() {
   return (
     <Box
       sx={{
+        display: 'flex',
+        flexDirection: 'column',
         textAlign: 'center',
         py: 8,
         px: 12,
