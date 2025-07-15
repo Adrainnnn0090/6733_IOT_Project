@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from "react";
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { Box, Typography } from '@mui/material';
+import ActivityMonitor from './ActivityMonitor.jsx';
 
 
 export default function App() {
+
   return (
     <Box
       sx={{
@@ -42,6 +44,11 @@ export default function App() {
       >
         Real-time Human Activity Recognition Powered by IMU + LLM
       </Typography>
+
+
+      <Box mt={4}>
+        <ActivityMonitor />
+      </Box>
     </Box>
   );
 }
