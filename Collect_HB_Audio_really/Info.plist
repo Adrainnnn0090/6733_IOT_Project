@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>App need to write your heart beats</string>
+
+	<key>NSHealthShareUsageDescription</key>
+	<string>App needs access to read heart rate data from Apple Watch via HealthKit.</string>
+
+	<key>CFBundleIdentifier</key>
+	<string>com.adrian.Collect-HB-Audio-really</string>
+
+	<key>CFBundleName</key>
+	<string>CollectHBApp</string>
+
+	<key>CFBundleDisplayName</key>
+	<string>Collect HB Audio</string>
+
+	<key>CFBundleExecutable</key>
+	<string>Collect_HB_Audio_really</string>
+</dict>
+</plist>
