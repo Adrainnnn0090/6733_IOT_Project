@@ -3,9 +3,14 @@ from pydantic import BaseModel
 from typing import List
 import openai
 from openai import OpenAI
+import uvicorn
 
 
 app = FastAPI()
+
+
+if __name__ == "__main__":
+    uvicorn.run("backend:app", host="127.0.0.1", port=8251, reload=True)
 
 OPENAI_API_KEY= "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"
 
@@ -79,8 +84,9 @@ async def receive_imu_data(data: IMUData):
         "activity": activity
     }
 
-
-
+# -----------------------------
+# 5. GET Socket
+# -----------------------------
 @app.get("/latest")
 def get_latest_activity():
     return latest_activity
