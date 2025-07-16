@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>OpenAI_API_Key</key>
+	<string>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</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>This app needs access to your local network to communicate with backend.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+</dict>
+</plist>
