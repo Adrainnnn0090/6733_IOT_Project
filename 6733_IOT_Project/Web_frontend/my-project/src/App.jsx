@@ -22,19 +22,33 @@ export default function App() {
         boxShadow: 3,
       }}
     >
-      <Typography
-        variant="h2"
-        sx={{
-          fontWeight: 1800,
-          background: 'linear-gradient(to right, #00c6ff, #0072ff)',
+<Typography
+      variant="h2"
+      sx={{
+          fontWeight: 700,
+          fontSize: '3.5rem',
+          background: 'linear-gradient(to right, #6366f1, #60a5fa)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
+          mb: 2,
         }}
-      >
-        KinetiSense
-      </Typography>
+>
+      KinetiSense
+</Typography>
 
-      <Typography
+        
+<Typography
+        variant="h5"
+        sx={{
+          fontWeight: 400,
+          color: 'rgba(255, 255, 255, 0.9)',
+          mb: 3,
+        }}
+>
+  Smart Sensing for Every Move
+</Typography>
+
+<Typography
         variant="subtitle1"
         sx={{
           mt: 2,
@@ -43,7 +57,7 @@ export default function App() {
         }}
       >
         Real-time Human Activity Recognition Powered by IMU + LLM
-      </Typography>
+</Typography>
 
 
       <Box mt={4}>

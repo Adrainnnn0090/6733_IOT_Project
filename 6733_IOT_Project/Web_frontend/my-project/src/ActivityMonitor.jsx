@@ -28,7 +28,7 @@ function ActivityMonitor() {
   }, []);
 
   return (
-    <div>
+    <div className="card">
       <h2>Latest Activity</h2>
       <p><strong>User ID:</strong> {userId}</p>
       <p><strong>Timestamp:</strong> {timestamp}</p>
