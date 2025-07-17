@@ -97,25 +97,29 @@ def call_gpt(prompt: str) -> str:
 # -----------------------------
 # 4. POST Socket
 # -----------------------------
-current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-latest_activity = {f"user_id": "","time":current_time, "activity": ""}
+
+latest_activity = {f"user_id": "","timestamp": "", "activity": ""}
 
 @app.post("/imu-data")
 async def receive_imu_data(data: IMUData):
     print(f"✅ Received {len(data.samples)} samples from user {data.user_id}")
     prompt = construct_prompt(data)
     activity = call_gpt(prompt)
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     #  记得更新全局变量 latest_activity
     latest_activity["user_id"] = data.user_id
-    #latest_activity["timestamp"] = data.timestamp
+    latest_activity["timestamp"] = current_time
     latest_activity["activity"] = activity
 
     return {
         "user_id": data.user_id,
-        #"timestamp": data.timestamp,
+        "timestamp": current_time,
         "activity": activity
     }
+
+
+
 
 # -----------------------------
 # 5. GET Socket
