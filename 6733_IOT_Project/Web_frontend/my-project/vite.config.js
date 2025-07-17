@@ -6,6 +6,6 @@ export default defineConfig({
   server: {
     host: '0.0.0.0', // 开放给局域网访问
     port: 5173,
-    allowedHosts: ['adddd.local'], // 👈 添加这行
+    allowedHosts: ['adddd.local'],
   },
 })
