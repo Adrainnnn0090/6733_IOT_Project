@@ -64,18 +64,46 @@ function ActivityMonitor() {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Grid item xs={12} md={6}>
-            <Typography variant="h5" gutterBottom>
+          <Grid item xs={12} md={6} >
+            <Typography
+              variant="h5"
+              gutterBottom
+              sx={{
+                fontSize: '2.2rem',
+                fontWeight: 600,
+                letterSpacing: '0.5px',
+                color: '#F5F5F7',
+                fontFamily: `"SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`, // 苹果官方字体
+                textShadow: '0 1px 3px rgba(0,0,0,0.2)',
+              }}
+            >
               Latest Activity
             </Typography>
             <Typography>
-              <strong>User ID:</strong> {userId}
+              <Box component="span" sx={{ fontWeight: 'bold', color: 'rgba(255,255,255,0.9)', mr: 1 }}>
+                User ID:
+              </Box>
+              <Box component="span" sx={{ color: '#f0f0f5' /* or Apple-like colors */ }}>
+                {userId}
+              </Box>
             </Typography>
+
             <Typography>
-              <strong>Timestamp:</strong> {timestamp}
+              <Box component="span" sx={{ fontWeight: 'bold', color: 'rgba(255,255,255,0.9)', mr: 1 }}>
+                Timestamp:
+              </Box>
+              <Box component="span" sx={{ color: '#e0e0ec' }}>
+                {timestamp}
+              </Box>
             </Typography>
+
             <Typography>
-              <strong>Activity:</strong> {activity}
+              <Box component="span" sx={{ fontWeight: 'bold', color: 'rgba(255,255,255,0.9)', mr: 1 }}>
+                Activity:
+              </Box>
+              <Box component="span" sx={{ color: '#cce4ff' /* soft blue */ }}>
+                {activity}
+              </Box>
             </Typography>
           </Grid>
 
