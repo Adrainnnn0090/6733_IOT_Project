@@ -35,7 +35,7 @@ def construct_prompt(data: IMUData) -> str:
         "What is the most likely human activity? !!!!!Think step by step!!!!!!!"
         #"Response your thoughts step by step, and then give the final answer.\n"
         "!!!!!!Strict LIMITATION!!!!!You must only reponse one activity in following activity set\n"
-        "activitiy set: running, standing, walking, climbing stairs, swimming, Unkown.\n"
+        "activitiy set: running, standing, walking, climbing stairs, swimming, unknown.\n"
         "you can only responset activity name, do not response any other words.\n"
         "!!!!!Think step by step!!!!!!!"
     )
