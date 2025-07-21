@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi import Query
 from pydantic import BaseModel
 from typing import List
 import openai
@@ -12,7 +13,7 @@ from datetime import datetime
 from fastapi import HTTPException, status, Header
 from typing import Optional
 from uuid import uuid4
-from datastore import users, all_latest_activities
+from datastore import users, all_latest_activities, admin_users
 
 app = FastAPI()
 
@@ -162,41 +163,74 @@ async def receive_imu_data(data: IMUData):
 # -----------------------------
 # 5. GET Socket
 # -----------------------------
+
 @app.get("/latest")
-def get_latest_activity():
-    print(f"latest_activity: {latest_activity}")
-    return latest_activity
+def get_latest_activity(user_id: str = Query(..., description="User ID or username")):
+    if user_id not in all_latest_activities:
+        raise HTTPException(status_code=404, detail="No activity found for this user.")
+    return all_latest_activities[user_id]
 
 
 
 
-class RegisterData(BaseModel):
+# -----------------------------
+# 玩家注册 / 登录（无需密码）
+# -----------------------------
+class JoinUser(BaseModel):
+    user_id: str
+
+@app.post("/user/join")
+def join_user(data: JoinUser):
+    if data.user_id not in users:
+        token = str(uuid4())
+        users[data.user_id] = {
+            "token": token
+        }
+    return {
+        "user_id": data.user_id,
+        "token": users[data.user_id]["token"]
+    }
+
+
+
+# -----------------------------
+# 管理员注册
+# -----------------------------
+class AdminRegisterData(BaseModel):
     user_id: str
     password: str
-    name: str
 
-@app.post("/auth/register")
-def register_user(data: RegisterData):
-    if data.user_id in users:
-        raise HTTPException(status_code=400, detail="User ID already registered.")
+@app.post("/admin/register")
+def admin_register(data: AdminRegisterData):
+    if data.user_id in admin_users:
+        raise HTTPException(status_code=400, detail="Admin user_id already registered.")
     token = str(uuid4())
-    users[data.user_id] = {"password": data.password, "name": data.name, "token": token}
+    admin_users[data.user_id] = {
+        "password": data.password,
+        "token": token
+    }
     return {"token": token}
 
 
 # -----------------------------
-# 登录接口
+# 管理员登录
 # -----------------------------
-class LoginData(BaseModel):
+class AdminLoginData(BaseModel):
     user_id: str
     password: str
 
-@app.post("/auth/login")
-def login_user(data: LoginData):
-    user = users.get(data.user_id)
-    if not user or user["password"] != data.password:
-        raise HTTPException(status_code=401, detail="Invalid credentials.")
-    return {"token": user["token"]}
+@app.post("/admin/login")
+def admin_login(data: AdminLoginData):
+    admin = admin_users.get(data.user_id)
+    if not admin or admin["password"] != data.password:
+        raise HTTPException(status_code=401, detail="Invalid admin credentials.")
+    return {"token": admin["token"]}
+
+
+
+
+
+
 
 # -----------------------------
 # return all user's latest activities
