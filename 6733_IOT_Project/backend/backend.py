@@ -55,11 +55,42 @@ class IMUData(BaseModel):
 # 2. create ChatGPT Prompt
 # -----------------------------
 def construct_prompt(data: IMUData) -> str:
+    # prompt = (
+    #     "!!!!!Think step by step!!!!!!!\n"
+    #     "You are a professional activity recognition Human Expert.\n"
+    #     "Analyze the following IMU data from a college student (175cm, 70kg):\n"
+    #     "The IMU was placed in the user's hand or pocket.\n"
+    #     "Each record includes: timestamp, 3-axis accelerometer, gyroscope, and magnetometer readings.\n\n"
+    #     "The data was recorded over a 2-second window and has been downsampled (1 out of every 10 samples preserved).\n"
+    # )
+    # for sample in data.samples:
+    #     prompt += (
+    #         f"Timestamp: {sample.timestamp:.2f}, "
+    #         f"Acc: [{sample.accX:.2f}, {sample.accY:.2f}, {sample.accZ:.2f}], "
+    #         f"Gyro: [{sample.gyroX:.2f}, {sample.gyroY:.2f}, {sample.gyroZ:.2f}], "
+    #         f"Mag: [{sample.magX:.2f}, {sample.magY:.2f}, {sample.magZ:.2f}]\n"
+    #     )
+
+    # prompt += (
+        
+    #     "You must only respond with **one** activity from:\n"
+    #     "running, standing, walking, climbing stairs, Unknown.\n"
+    #     "Only respond with the activity name."
+    #     "you must think step by step and analyze the data before giving the final answer.\n"
+    #     "Do not include any other text or explanation except (running, standing, walking, climbing stairs, Unknown.)\n"
+    # )
     prompt = (
-        "!!!!!Think step by step!!!!!!!\n"
-        "You are a professional activity recognition Human Expert.\n"
-        "Analyze the following IMU data from a college student (175cm, 70kg):\n"
+    "You are a professional human activity recognition expert.\n"
+    "Analyze the following IMU data from a college student (175cm, 70kg).\n"
+    "The IMU was placed in the user's hand or pocket.\n"
+    "The data was recorded over a 2-second window and has been downsampled (1 out of every 10 samples preserved).\n"
+    "Each record includes: timestamp, 3-axis accelerometer, gyroscope, and magnetometer readings.\n\n"
+    "Please reason step-by-step and identify the most likely activity.\n"
+    "You must choose **only one** from the following options:\n"
+    "→ walking, running, standing, climbing stairs, swimming, unknown.\n"
+    "Respond with just the activity name.\n\n"
     )
+
     for sample in data.samples:
         prompt += (
             f"Timestamp: {sample.timestamp:.2f}, "
@@ -68,12 +99,7 @@ def construct_prompt(data: IMUData) -> str:
             f"Mag: [{sample.magX:.2f}, {sample.magY:.2f}, {sample.magZ:.2f}]\n"
         )
 
-    prompt += (
-        "!!!!!Think step by step!!!!!!!\n"
-        "You must only respond with **one** activity from:\n"
-        "running, standing, walking, climbing stairs, swimming, Unknown.\n"
-        "Only respond with the activity name."
-    )
+    prompt += "\nActivity:(ONLY respond with the activity name, no other text)\n"
 
     return prompt
 

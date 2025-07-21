@@ -120,7 +120,7 @@ struct View5_2: View {
         let data = data_analyze
         
         
-        guard let url = URL(string: "http://172.20.10.9:8251/latest") else { return }
+        guard let url = URL(string: "http://adddd.local:8251/latest") else { return }
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -159,7 +159,7 @@ struct View5_2: View {
         let sampleData = data_analyze
         let imuRequest = IMURequest(user_id: "ios_user_1", samples: sampleData)
 
-        guard let url = URL(string: "http://172.20.10.9:8251/imu-data") else { return }
+        guard let url = URL(string: "http://adddd.local:8251/imu-data") else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

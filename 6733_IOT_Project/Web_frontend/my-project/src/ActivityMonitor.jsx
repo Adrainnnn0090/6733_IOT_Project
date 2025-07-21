@@ -12,7 +12,7 @@ function ActivityMonitor() {
       walking: "walking.gif",
       running: "running.gif",
       standing: "standing.gif",
-      "climbing stairs": "climbing_stairs.gif",
+      climbing_stairs: "climbing_stairs.gif",
       swimming: "swimming.gif",
       unknown: "unknown.gif",
     };
