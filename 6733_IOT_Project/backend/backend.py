@@ -9,6 +9,10 @@ from fastapi.middleware.cors import CORSMiddleware
 import time
 from datetime import datetime
 
+from fastapi import HTTPException, status, Header
+from typing import Optional
+from uuid import uuid4
+from datastore import users, all_latest_activities
 
 app = FastAPI()
 
@@ -85,9 +89,9 @@ def construct_prompt(data: IMUData) -> str:
     "The IMU was placed in the user's hand or pocket.\n"
     "The data was recorded over a 2-second window and has been downsampled (1 out of every 10 samples preserved).\n"
     "Each record includes: timestamp, 3-axis accelerometer, gyroscope, and magnetometer readings.\n\n"
-    "Please reason step-by-step and identify the most likely activity.\n"
-    "You must choose **only one** from the following options:\n"
-    "→ walking, running, standing, climbing stairs, swimming, unknown.\n"
+    "YOU must think step-by-step and identify the most likely activity.\n"
+    "You must choose **ONLY ONE** from the following options:\n"
+    "walking, running, standing, climbing stairs, swimming, unknown.\n"
     "Respond with just the activity name.\n\n"
     )
 
@@ -138,6 +142,14 @@ async def receive_imu_data(data: IMUData):
     latest_activity["timestamp"] = current_time
     latest_activity["activity"] = activity
 
+
+    # 存入 all_latest_activities
+    all_latest_activities[data.user_id] = {
+        "user_id": data.user_id,
+        "timestamp": current_time,
+        "activity": activity
+    }
+
     return {
         "user_id": data.user_id,
         "timestamp": current_time,
@@ -154,3 +166,41 @@ async def receive_imu_data(data: IMUData):
 def get_latest_activity():
     print(f"latest_activity: {latest_activity}")
     return latest_activity
+
+
+
+
+class RegisterData(BaseModel):
+    user_id: str
+    password: str
+    name: str
+
+@app.post("/auth/register")
+def register_user(data: RegisterData):
+    if data.user_id in users:
+        raise HTTPException(status_code=400, detail="User ID already registered.")
+    token = str(uuid4())
+    users[data.user_id] = {"password": data.password, "name": data.name, "token": token}
+    return {"token": token}
+
+
+# -----------------------------
+# 登录接口
+# -----------------------------
+class LoginData(BaseModel):
+    user_id: str
+    password: str
+
+@app.post("/auth/login")
+def login_user(data: LoginData):
+    user = users.get(data.user_id)
+    if not user or user["password"] != data.password:
+        raise HTTPException(status_code=401, detail="Invalid credentials.")
+    return {"token": user["token"]}
+
+# -----------------------------
+# return all user's latest activities
+# -----------------------------
+@app.get("/all-latest")
+def get_all_latest():
+    return list(all_latest_activities.values())
