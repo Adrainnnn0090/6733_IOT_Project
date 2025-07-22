@@ -1,12 +1,32 @@
 {
   "ios_user_1": {
     "user_id": "ios_user_1",
-    "timestamp": "2025-07-22 11:40:59",
-    "activity": "Standing"
+    "timestamp": "2025-07-22 12:19:40",
+    "activity": "Climbing stairs"
   },
   "ios_user_2": {
     "user_id": "ios_user_2",
     "timestamp": "2025-07-22 11:46:11",
+    "activity": "Walking"
+  },
+  "123321": {
+    "user_id": "123321",
+    "timestamp": "2025-07-22 12:43:00",
+    "activity": "Climbing stairs"
+  },
+  "213": {
+    "user_id": "213",
+    "timestamp": "2025-07-22 13:05:13",
+    "activity": "climbing stairs"
+  },
+  "jddnissnk%*@\u00a5$\u20a9/\\\uff1f": {
+    "user_id": "jddnissnk%*@\u00a5$\u20a9/\\\uff1f",
+    "timestamp": "2025-07-22 13:08:18",
+    "activity": "Walking"
+  },
+  "akakb": {
+    "user_id": "akakb",
+    "timestamp": "2025-07-22 13:09:10",
     "activity": "Walking"
   }
 }

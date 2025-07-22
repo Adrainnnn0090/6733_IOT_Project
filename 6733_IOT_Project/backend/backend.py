@@ -87,7 +87,7 @@ def construct_prompt(data: IMUData) -> str:
     prompt = (
     "You are a professional human activity recognition expert.\n"
     "Analyze the following IMU data from a college student (175cm, 70kg).\n"
-    "The IMU was placed in the user's hand or pocket.\n"
+    "The IMU device was placed in the user's hand or pocket.\n"
     "The data was recorded over a 2-second window and has been downsampled (1 out of every 10 samples preserved).\n"
     "Each record includes: timestamp, 3-axis accelerometer, gyroscope, and magnetometer readings.\n\n"
     "YOU must think step-by-step and identify the most likely activity.\n"
