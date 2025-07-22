@@ -145,6 +145,7 @@ async def receive_imu_data(data: IMUData):
 
 
     # 存入 all_latest_activities
+    print("📩 POST /imu-data triggered")
     all_latest_activities[data.user_id] = {
         "user_id": data.user_id,
         "timestamp": current_time,
