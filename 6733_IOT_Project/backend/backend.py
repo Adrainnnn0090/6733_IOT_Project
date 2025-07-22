@@ -13,7 +13,7 @@ from datetime import datetime
 from fastapi import HTTPException, status, Header
 from typing import Optional
 from uuid import uuid4
-from datastore import users, all_latest_activities, admin_users
+from datastore import users, admin_users, all_latest_activities, save_latest_activities
 
 app = FastAPI()
 
@@ -151,6 +151,8 @@ async def receive_imu_data(data: IMUData):
         "timestamp": current_time,
         "activity": activity
     }
+
+    save_latest_activities(all_latest_activities)
 
     return {
         "user_id": data.user_id,
