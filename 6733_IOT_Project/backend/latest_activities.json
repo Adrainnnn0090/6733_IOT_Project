@@ -1,7 +1,12 @@
 {
   "ios_user_1": {
     "user_id": "ios_user_1",
-    "timestamp": "2025-07-22 11:39:02",
+    "timestamp": "2025-07-22 11:40:59",
     "activity": "Standing"
+  },
+  "ios_user_2": {
+    "user_id": "ios_user_2",
+    "timestamp": "2025-07-22 11:46:11",
+    "activity": "Walking"
   }
 }

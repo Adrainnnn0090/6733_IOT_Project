@@ -16,11 +16,11 @@ def save_latest_activities(data):
     with open(DATA_FILE, 'w') as f:
       json.dump(data, f, indent=2)
     print("latest_activities.json saved successfully.")
-    print("!!!!!!!!!!!! saved file path:", os.path.abspath(DATA_FILE))
+    print("!!!!!!!#@@@@@@@ saved file path:", os.path.abspath(DATA_FILE))
 
 # 全局变量
 users = {}  # user_id: { token }
 admin_users = {}  # user_id: { password, token }
 
-# 加载已有数据（✅ 会覆盖旧的写死数据）
+# 加载已有数据（会覆盖旧的数据）
 all_latest_activities = load_latest_activities()
