@@ -14,6 +14,11 @@ from fastapi import HTTPException, status, Header
 from typing import Optional
 from uuid import uuid4
 from datastore import users, admin_users, all_latest_activities, save_latest_activities
+from admin_register_loading import save_admin_users, load_admin_users
+import json
+import os
+
+
 
 app = FastAPI()
 
@@ -79,7 +84,7 @@ def construct_prompt(data: IMUData) -> str:
     # prompt += (
         
     #     "You must only respond with **one** activity from:\n"
-    #     "running, standing, walking, climbing stairs, Unknown.\n"
+    #     "running, standing, walking, Climbing stairs, Unknown.\n"
     #     "Only respond with the activity name."
     #     "you must think step by step and analyze the data before giving the final answer.\n"
     #     "Do not include any other text or explanation except (running, standing, walking, climbing stairs, Unknown.)\n"
@@ -92,7 +97,7 @@ def construct_prompt(data: IMUData) -> str:
     "Each record includes: timestamp, 3-axis accelerometer, gyroscope, and magnetometer readings.\n\n"
     "YOU must think step-by-step and identify the most likely activity.\n"
     "You must choose **ONLY ONE** from the following options:\n"
-    "walking, running, standing, climbing stairs, swimming, unknown.\n"
+    "walking, running, standing, climbing stairs, unknown.\n"
     "Respond with just the activity name.\n\n"
     )
 
@@ -200,37 +205,41 @@ def join_user(data: JoinUser):
 # 管理员注册
 # -----------------------------
 class AdminRegisterData(BaseModel):
-    user_id: str
+    email: str
     password: str
+    name: str
 
 @app.post("/admin/register")
 def admin_register(data: AdminRegisterData):
-    if data.user_id in admin_users:
-        raise HTTPException(status_code=400, detail="Admin user_id already registered.")
+    if data.name in admin_users:
+        raise HTTPException(status_code=400, detail="Admin user already registered.")
     token = str(uuid4())
-    admin_users[data.user_id] = {
+    admin_users[data.name] = {
+        "email": data.email,
         "password": data.password,
         "token": token
     }
+    save_admin_users(admin_users) 
     return {"token": token}
+
 
 
 # -----------------------------
 # 管理员登录
 # -----------------------------
+
+ADMIN_USER_FILE = "admin_users.json"
+
 class AdminLoginData(BaseModel):
-    user_id: str
+    email: str
     password: str
 
 @app.post("/admin/login")
 def admin_login(data: AdminLoginData):
-    admin = admin_users.get(data.user_id)
-    if not admin or admin["password"] != data.password:
-        raise HTTPException(status_code=401, detail="Invalid admin credentials.")
-    return {"token": admin["token"]}
-
-
-
+    for user_info in admin_users.values():
+        if user_info.get("email") == data.email and user_info.get("password") == data.password:
+            return {"token": user_info["token"]}
+    raise HTTPException(status_code=401, detail="Invalid admin credentials.")
 
 
 
@@ -240,4 +249,5 @@ def admin_login(data: AdminLoginData):
 # -----------------------------
 @app.get("/all-latest")
 def get_all_latest():
+    print("@@@@@@@@@@@@@@@@@@ fetching all latest activities")
     return list(all_latest_activities.values())

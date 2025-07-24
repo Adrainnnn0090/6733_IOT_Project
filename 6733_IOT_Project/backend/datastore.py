@@ -6,6 +6,7 @@ DATA_FILE = os.path.join(BASE_DIR, 'latest_activities.json')
 
 # 尝试从文件中加载历史记录
 def load_latest_activities():
+    print("@@@@@@@@@@@@@@@@@@ loading latest_activities.json")
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, 'r') as f:
             return json.load(f)
