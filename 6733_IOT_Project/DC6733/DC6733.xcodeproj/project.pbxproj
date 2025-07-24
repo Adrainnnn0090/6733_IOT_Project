@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3A5411832E278C5E006BA139 /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5411822E278C5E006BA139 /* OpenAISwift */; };
+		3AD497472E31D4FF00B66F56 /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3AD497462E31D4FF00B66F56 /* OpenAISwift */; };
 		F8A1169C2E272CF400D0E33D /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = F8A1169B2E272CF400D0E33D /* OpenAISwift */; };
 		F8A1169F2E27316400D0E33D /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = F8A1169E2E27316400D0E33D /* OpenAISwift */; };
 		F8A305D42E26BE3E00A85D2F /* SwiftOpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = F8A305D32E26BE3E00A85D2F /* SwiftOpenAI */; };
@@ -60,6 +61,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A5411832E278C5E006BA139 /* OpenAISwift in Frameworks */,
+				3AD497472E31D4FF00B66F56 /* OpenAISwift in Frameworks */,
 				F8A1169C2E272CF400D0E33D /* OpenAISwift in Frameworks */,
 				F8A1169F2E27316400D0E33D /* OpenAISwift in Frameworks */,
 				F8A305D42E26BE3E00A85D2F /* SwiftOpenAI in Frameworks */,
@@ -135,6 +137,7 @@
 				F8A1169B2E272CF400D0E33D /* OpenAISwift */,
 				F8A1169E2E27316400D0E33D /* OpenAISwift */,
 				3A5411822E278C5E006BA139 /* OpenAISwift */,
+				3AD497462E31D4FF00B66F56 /* OpenAISwift */,
 			);
 			productName = DC6733;
 			productReference = F85858832E25ED850070DF7F /* DC6733.app */;
@@ -431,12 +434,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Jo.DC6733;
+				PRODUCT_BUNDLE_IDENTIFIER = Jo.DC6733.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -460,12 +464,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Jo.DC6733;
+				PRODUCT_BUNDLE_IDENTIFIER = Jo.DC6733.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -483,7 +488,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Jo.DC6733Tests;
+				PRODUCT_BUNDLE_IDENTIFIER = Jo.DC6733.1Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -502,7 +507,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Jo.DC6733Tests;
+				PRODUCT_BUNDLE_IDENTIFIER = Jo.DC6733.1Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -519,7 +524,7 @@
 				DEVELOPMENT_TEAM = YXN5NH48J8;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Jo.DC6733UITests;
+				PRODUCT_BUNDLE_IDENTIFIER = Jo.DC6733.1UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -536,7 +541,7 @@
 				DEVELOPMENT_TEAM = YXN5NH48J8;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Jo.DC6733UITests;
+				PRODUCT_BUNDLE_IDENTIFIER = Jo.DC6733.1UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -606,6 +611,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		3A5411822E278C5E006BA139 /* OpenAISwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OpenAISwift;
+		};
+		3AD497462E31D4FF00B66F56 /* OpenAISwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = OpenAISwift;
 		};

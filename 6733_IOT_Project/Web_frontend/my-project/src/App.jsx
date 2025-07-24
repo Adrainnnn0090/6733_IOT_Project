@@ -1,75 +1,85 @@
-import { useState, useEffect } from "react";
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { Box, Typography, CssBaseline } from '@mui/material';
-import ActivityMonitor from './ActivityMonitor.jsx';
-// import ActivityMonitor from "./ActivityMonitor";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import WelcomePage from './WelcomePage.jsx'; // 欢迎页
+import UserJoinPage from './UserJoinPage.jsx'; // 输入用户名即可
+import AdminAuthPage from './AdminAuthPage.jsx'; // 登录 / 注册页
+import UserActivity from './UserActivity.jsx'; // 用户活动监控页
+import AdminDashboard from './AdminDashboard.jsx'; // 管理员仪表盘
+import { useNavigate } from 'react-router-dom';
+import './App.css'; // 全局样式
+import React, { useEffect, useState } from 'react';
 
 
-export default function App() {
+function NavBar() {
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+    }
+  }, [navigate]);
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        textAlign: 'center',
-        py: 6,
-        px: 4,
-        mx: 'auto',
-        maxWidth: '900px',
-        borderRadius: '32px',
-        background: 'rgba(25, 25, 30, 0.85)', // 更深背景，提升对比
-        backdropFilter: 'blur(24px)',
-        border: '1px solid rgba(255,255,255,0.15)',
-        boxShadow: '0 8px 40px rgba(0,0,0,0.3)',
-        color: '#ffffff',
-        fontFamily: `"SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`,
-      }}
-    >
-      <Typography
-        variant="h2"
-        sx={{
-          fontWeight: 700,
-          fontSize: '3.2rem',
-          color: '#fefefe',
-          mb: 2,
-        }}
-      >
-        KinetiSense
-      </Typography>
-
-      <Typography
-        variant="h5"
-        sx={{
-          fontWeight: 400,
-          fontSize: '1.5rem',
-          color: '#e0e0e0',
-          mb: 2,
-        }}
-      >
-        Smart Sensing for Every Move
-      </Typography>
-
-      <Typography
-        variant="subtitle1"
-        sx={{
-          mt: 1,
-          fontSize: '1.15rem',
-          color: '#cccccc',
-          maxWidth: '600px',
-        }}
-      >
-        Real-time Human Activity Recognition Powered by IMU + LLM
-      </Typography>
-
-      <Box mt={5} width="100%">
-        <ActivityMonitor />
-      </Box>
-    </Box>
+    <div style={{
+      background: 'linear-gradient(to right, #0f2027, #203a43, #2c5364)',
+      padding: '1rem 2rem',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      color: '#fff',
+      fontWeight: '500',
+      fontSize: '1.1rem',
+      boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 999,
+    }}>
+      <div style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>🏠 Welcome</div>
+      <div style={{ display: 'flex', gap: '1.5rem' }}>
+        <div style={{ cursor: 'pointer' }} onClick={() => navigate('/user')}>👤 User</div>
+        <div style={{ cursor: 'pointer' }} onClick={() => navigate('/admin')}>🛡️ Admin</div>
+      </div>
+    </div>
   );
 }
 
+
+function AppRoutes() {
+  return (
+    <>
+      <NavBar />
+      <div>
+        <Routes>
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="/user" element={<UserJoinPage />} />
+          <Route path="/admin" element={<AdminAuthPage />} />
+          <Route path="/user-activity/:userId" element={<UserActivity />} />
+          <Route path="/adminDashboard" element={<AdminDashboard />} />
+        </Routes>
+      </div>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AppRoutes />
+    </Router>
+  );
+}
+
+// export default function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<WelcomePage />} />
+//         <Route path="/user" element={<UserJoinPage />} />
+//         <Route path="/admin" element={<AdminAuthPage />} />
+//         <Route path="/user-activity/:userId" element={<UserActivity />} />
+//         {/* 其他页面 */}
+//       </Routes>
+//     </Router>
+//   );
+// }
 

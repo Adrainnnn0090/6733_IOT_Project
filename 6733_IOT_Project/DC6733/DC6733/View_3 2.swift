@@ -120,13 +120,13 @@ struct View3_2: View {
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!changed the time to 30; 2 is used for test!
     func DC_Countdown() {
         print("---3_2_dc_countdown------")
-        DC_total = 2
-        for i in 0..<2 {
+        DC_total = 11
+        for i in 0..<11 {
             DispatchQueue.main.asyncAfter(deadline: .now() + Double(i)) {
-                DC_total = 2 - i
+                DC_total = 11 - i
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 11.1) {
             DC_USER_CNT = false
             msg_preparing.append("Collection Finished!")
             motionManager.stop()

@@ -32,6 +32,8 @@ struct View5_2: View {
     @State private var isLoading = false
     @State private var timer: Timer?
     @State private var analysisFinished = false
+    
+    @AppStorage("userID") var userID: String = ""
 
     func appendMessageAndStartTyping(_ newMessage: String) {
         msg_show.append(newMessage)
@@ -81,9 +83,15 @@ struct View5_2: View {
         let userPrompt =  """
             !!!!!Think step by step!!!!!!!
             You are a professional activity recognition Human Expert.
-            Given IMU data with format[time, accelerator_x]:
+            Analyze the following IMU data from a college student (175cm, 70kg).
+            The IMU device was placed in the user's hand or pocket.
+            The data was recorded over a 2-second window and has been downsampled (1 out of every 10 samples preserved).
+            Each record includes: timestamp, 3-axis accelerometer, gyroscope, and magnetometer readings.
+            Given IMU data with format[time, accelerator_x...]:
             IMU Data: \(data)
-            Provide ONE of: running, standing, walking, climbing stairs, swimming, Unknown.
+            
+            YOU must think step-by-step and identify the most likely activity.
+            You must choose **ONLY ONE** from the following options: walking, running, standing, climbing stairs, swimming, unknown.
             !!!!!Think step by step and Return bridfly!!!!!!!
             response in few sentences
             """
@@ -120,7 +128,12 @@ struct View5_2: View {
         let data = data_analyze
         
         
-        guard let url = URL(string: "http://adddd.local:8251/latest") else { return }
+        let urlString = "http://adddd.local:8251/latest?user_id=\(userID)"
+        guard let url = URL(string: urlString) else {
+            print("❌ Invalid URL")
+            return
+        }
+
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -157,7 +170,7 @@ struct View5_2: View {
     func analyzewithBackEnd() {
       
         let sampleData = data_analyze
-        let imuRequest = IMURequest(user_id: "ios_user_1", samples: sampleData)
+        let imuRequest = IMURequest(user_id: "\(userID)", samples: sampleData)
 
         guard let url = URL(string: "http://adddd.local:8251/imu-data") else { return }
         

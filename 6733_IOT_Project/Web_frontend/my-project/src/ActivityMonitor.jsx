@@ -19,23 +19,26 @@ function ActivityMonitor() {
     return `/images/${imageMap[normalized] || "unknown.gif"}`;
   };
 
-  useEffect(() => {
-    const fetchLatestActivity = async () => {
-      try {
-        const res = await fetch("http://adddd.local:8251/latest");
-        const json = await res.json();
-        setUserId(json.user_id);
-        setTimestamp(json.timestamp);
-        setActivity(json.activity);
-      } catch (err) {
-        console.error("Fetch failed:", err);
-      }
-    };
+useEffect(() => {
+  const fetchLatestActivity = async () => {
+    const storedUserId = localStorage.getItem("userId");
+    if (!storedUserId) return;
 
-    fetchLatestActivity();
-    const interval = setInterval(fetchLatestActivity, 2000);
-    return () => clearInterval(interval);
-  }, []);
+    try {
+      const res = await fetch(`http://adddd.local:8251/latest?user_id=${encodeURIComponent(storedUserId)}`);
+      const json = await res.json();
+      setUserId(json.user_id);
+      setTimestamp(json.timestamp);
+      setActivity(json.activity);
+    } catch (err) {
+      console.error("Fetch failed:", err);
+    }
+  };
+
+  fetchLatestActivity();
+  const interval = setInterval(fetchLatestActivity, 2000);
+  return () => clearInterval(interval);
+}, []);
 
   return (
     <Box

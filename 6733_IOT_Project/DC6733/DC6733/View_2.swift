@@ -9,6 +9,10 @@ import SwiftUI
 import CoreMotion
 import Combine
 
+
+
+
+
 struct View2: View {
     private let motionManager = CMMotionManager()
     @State private var showSensorInfo = false
@@ -21,6 +25,12 @@ struct View2: View {
     @State private var show_mag = false
     @State private var show_continous = false
     @State private var demo_continous = false
+    
+    
+    
+    @AppStorage("userID") var userID: String = ""
+    @State private var showUserInput = false
+    @State private var tempInput = ""
 
     
     func SensorStatusPrint(manager: CMMotionManager, mode: String) -> (String, String, String) {
@@ -68,10 +78,17 @@ struct View2: View {
                 Text("\nWhat would you like to do now?").font(.title2)
                 Text("\nCollect Data: Used for Developer").font(.callout)
                 Text("Demo Text: Used for User").font(.callout)
+                
+                // 可选：显示用户 ID
+                if !userID.isEmpty {
+                    Text("🤷🏻‍♀️Current User: \(userID)")
+                        .foregroundColor(.black)
+                }
+                    
                 Spacer()
                 
                 HStack{
-                    Spacer().frame(width: 50)
+                    Spacer().frame(width: 30)
                     Button("Collect Data") {
                         let _ = SensorStatusPrint(manager: motionManager, mode: "Developer")
                         withAnimation {
@@ -83,17 +100,51 @@ struct View2: View {
                     .background(Color.green)
                     .foregroundColor(.white)
                     .cornerRadius(10)
-                    Spacer().frame(width: 50)
+                    Spacer().frame(width: 30)
+                    
+//                    Button("Demo Test") {
+//                        let _ = SensorStatusPrint(manager: motionManager, mode: "User")
+//                        withAnimation {
+//                            showSensorInfo = true
+//                            startAnimationSequence(mode: "User")
+//                        }
                     
                     Button("Demo Test") {
-                        let _ = SensorStatusPrint(manager: motionManager, mode: "User")
-                        withAnimation {
-                            showSensorInfo = true
-                            startAnimationSequence(mode: "User")
+                        showUserInput = true
+                    }
+                   
+                    .buttonStyle(.borderedProminent)
+                    Spacer().frame(width: 30)
+                    .alert("Enter Your Name", isPresented: $showUserInput) {
+                        TextField("e.g. ios_user_1", text: $tempInput)
+                            .padding()
+                            .background(Color.gray.opacity(0.2))
+                            .foregroundColor(.black)
+                            .cornerRadius(8)
+                            .padding(.horizontal)
+                        Button("OK") {
+                            if !tempInput.isEmpty {
+                                userID = tempInput  // 存入全局
+                                print("✅ Saved userID: \(userID)")
+
+                                
+                                let _ = SensorStatusPrint(manager: motionManager, mode: "User")
+                                withAnimation {
+                                    showSensorInfo = true
+                                    startAnimationSequence(mode: "User")
+                                }
+                            }
                         }
+                        Button("Cancel", role: .cancel) {}
+                    } message: {
+                        Text("Your name will be used to tag your activity records.")
+                    }
+
+
                     }
                     .padding()
                     .background(Color.orange)
+               
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
@@ -144,10 +195,10 @@ struct View2: View {
         }
     }
     
+
     
-    
-    #Preview {
-        ContentView()
-        //View2()
-    }
+
+#Preview {
+    ContentView()
+    //View2()
 }

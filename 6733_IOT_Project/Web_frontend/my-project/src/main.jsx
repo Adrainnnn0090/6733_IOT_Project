@@ -9,8 +9,8 @@ import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-
     <App />
+
   </StrictMode>,
 )
 
