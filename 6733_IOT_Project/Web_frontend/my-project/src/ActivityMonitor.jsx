@@ -13,7 +13,7 @@ function ActivityMonitor() {
       running: "running.gif",
       standing: "standing.gif",
       climbing_stairs: "climbing_stairs.gif",
-      swimming: "swimming.gif",
+      jumping: "jumping.gif",
       unknown: "unknown.gif",
     };
     return `/images/${imageMap[normalized] || "unknown.gif"}`;
